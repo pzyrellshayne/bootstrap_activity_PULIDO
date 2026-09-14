@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunita</title>
+
+    <link rel="stylesheet" href="bootstrap5/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="bootstrap-icons/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bt-rose: #D96C8A;
+            --bt-rose-dark: #A84D68;
+            --bt-rose-deep: #7A3552;
+            --bt-blush: #FFF7F9;
+            --bt-blush-card: #FFEFF3;
+            --bt-cream: #FFFBF6;
+            --bt-gold: #E7B96B;
+            --bt-ink: #4A3540;
+        }
+
+        [data-bs-theme="dark"] {
+            --bt-blush: #211318;
+            --bt-blush-card: #2C1B22;
+            --bt-cream: #241519;
+            --bt-ink: #F3DFE6;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bt-blush);
+            color: var(--bt-ink);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, .navbar-brand, .display-heading {
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+
+        .btn-pink {
+            background-color: var(--bt-rose);
+            border-color: var(--bt-rose);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            box-shadow: 0 0.35rem 1rem rgba(217, 108, 138, 0.35);
+        }
+        .btn-pink:hover {
+            background-color: var(--bt-rose-dark);
+            border-color: var(--bt-rose-dark);
+            color: white;
+            box-shadow: 0 0.5rem 1.25rem rgba(168, 77, 104, 0.45);
+        }
+        .btn-outline-pink {
+            border: 2px solid #fff;
+            color: #fff;
+            font-weight: 600;
+        }
+        .btn-outline-pink:hover {
+            background-color: #fff;
+            color: var(--bt-rose-dark);
+        }
+        .text-pink { color: var(--bt-rose); }
+        .eyebrow {
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .section-underline {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bt-rose), var(--bt-gold));
+            margin: 0.6rem auto 0;
+            border-radius: 3px;
+        }
+
+        .navbar {
+            background-color: #fffaf7 !important;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(116, 31, 53, 0.08);
+            box-shadow: 0 3px 15px rgba(80, 30, 35, 0.06);
+            transition: box-shadow 0.3s ease, padding 0.3s ease, background-color 0.3s ease;
+        }
+
+        [data-bs-theme="dark"] .navbar {
+            background-color: #241519 !important;
+            border-bottom-color: rgba(243, 223, 230, 0.08);
+        }
+
+        .navbar-brand {
+            font-family: "Bodoni MT", "Didot", Georgia, serif;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            display: flex;
+            align-items: center;
+            color: #741f35 !important;
+            font-weight: 500;
+        }
+
+        [data-bs-theme="dark"] .navbar-brand {
+            color: #f3dfe6 !important;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+        .navbar.scrolled {
+            box-shadow: 0 0.35rem 1rem rgba(74, 53, 64, 0.12);
+        }
+        .navbar .nav-link {
+            font-weight: 500;
+            position: relative;
+            color: #741f35 !important;
+            margin-left: 8px;
+            margin-right: 8px;
+            transition: color 0.3s ease;
+        }
+
+        [data-bs-theme="dark"] .navbar .nav-link {
+            color: #f3dfe6 !important;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            color: #c65b79 !important;
+        }
+        .navbar .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 2px;
+            width: 0;
+            height: 2px;
+            background-color: var(--bt-rose);
+            transition: width 0.25s ease, left 0.25s ease;
+        }
+        .navbar .nav-link:hover::after {
+            width: 70%;
+            left: 15%;
+        }
+        #themeToggle {
+            border-color: var(--bt-rose);
+            color: var(--bt-rose);
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #themeToggle:hover {
+            background-color: var(--bt-rose);
+            color: #fff;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(116, 31, 53, 0.3);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.15rem rgba(165, 45, 77, 0.15);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            background:url("assets/bg.jpe");
+            background-size: cover;
+            background-position: center;
+        }
+        .hero .badge {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+        .hero h1 {
+            text-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+            font-family: "Bodoni MT", "Bodoni 72", "Didot", Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            text-shadow: none;
+        }
+
+        .hero h1 .script-word {
+            font-family: "Edwardian Script ITC", "Bickham Script Pro",
+                        "Brush Script MT", cursive;
+            font-weight: 400;
+            text-transform: none;
+            font-size: 1.35em;
+            letter-spacing: 0.05em;
+            color: #98062d;
+        }
+
+        .hero h1 .serif-word {
+            font-family: "Bodoni MT", "Bodoni 72", "Didot", Georgia, serif;
+            font-weight: 400;
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            opacity: 0.85;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 10px); }
+        }
+
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        
+        .feature-card {
+            background-color: var(--bt-cream);
+            border: 1px solid rgba(217, 108, 138, 0.15);
+            border-radius: 1rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1rem 2rem rgba(74, 53, 64, 0.15);
+        }
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bt-rose), var(--bt-rose-dark));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            margin: 0 auto 1.1rem;
+            box-shadow: 0 0.5rem 1rem rgba(217, 108, 138, 0.35);
+        }
+
+        
+        .price-card {
+            background-color: var(--bt-cream);
+            border: 1px solid rgba(217, 108, 138, 0.15);
+            border-radius: 1rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .price-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1rem 2rem rgba(74, 53, 64, 0.15);
+        }
+        .price-card.featured {
+            border: 2px solid var(--bt-gold);
+            box-shadow: 0 1rem 2.25rem rgba(231, 185, 107, 0.35);
+        }
+        .price-card .price {
+            color: var(--bt-rose-dark);
+            font-weight: 700;
+        }
+        [data-bs-theme="dark"] .price-card .price {
+            color: var(--bt-gold);
+        }
+        .featured-badge {
+            background: linear-gradient(90deg, var(--bt-rose), var(--bt-gold));
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .price-card ul li i {
+            color: var(--bt-rose);
+        }
+
+        .testimonial-card {
+            background-color: var(--bt-blush-card);
+            border-radius: 1rem;
+            border: 1px solid rgba(217, 108, 138, 0.15);
+        }
+        .avatar-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bt-rose), var(--bt-rose-deep));
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            font-size: 1.1rem;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            filter: invert(1) grayscale(100);
+            background-color: var(--bt-rose);
+            border-radius: 50%;
+            padding: 0.7rem;
+        }
+
+        
+        .contact-card {
+            background-color: var(--bt-cream);
+            border-radius: 1rem;
+            border: 1px solid rgba(217, 108, 138, 0.15);
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--bt-rose);
+            box-shadow: 0 0 0 0.2rem rgba(217, 108, 138, 0.2);
+        }
+
+        footer {
+            background-color: var(--bt-rose-deep);
+            color: #fce9ef;
+        }
+        footer a {
+            color: #fce9ef;
+            text-decoration: none;
+        }
+        footer .social-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.35);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+        footer .social-icon:hover {
+            background-color: var(--bt-rose);
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-body sticky-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="assets/logo.png" alt="Gunita Logo" class="nav-logo">
+                    <span>GUNITA</span>
+                </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <button id="themeToggle" class="btn btn-outline-secondary btn-sm rounded-circle" title="Toggle dark / light mode">
+                            <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<header id="home" class="hero">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-white">
+                    <span class="badge bg-light text-pink mb-3">
+                        <i class="bi bi-stars me-1"></i>Fresh Flowers • Made With Love
+                    </span>
+
+                    <h1>
+                        <span class="serif-word">flowers</span>
+                        <span class="script-word">hold</span><br>
+                        <span class="serif-word">memories</span>
+                    </h1>
+
+                    <div class="mt-4 d-flex justify-content-center flex-wrap gap-2">
+                        <a href="#features" class="btn btn-pink btn-lg">
+                            <i class="bi bi-flower2 me-1"></i>Explore Flowers
+                        </a>
+                        <a href="#contact" class="btn btn-outline-pink btn-lg">
+                            Customize a Bouquet
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="hero-scroll">
+        <i class="bi bi-chevron-double-down fs-4"></i>
+    </div>
+</header>
+<section id="features" class="py-5">
+        <div class="container py-5">
+
+            <div class="text-center mb-5 reveal">
+                <span class="text-pink eyebrow">WHAT WE OFFER</span>
+                <h2 class="fw-bold mt-2">Flowers Made Special</h2>
+                <div class="section-underline"></div>
+                <p class="text-muted mt-3 col-lg-6 mx-auto">
+                    Choose your flowers and make your bouquet uniquely yours.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-sm-12 col-md-4 reveal">
+                    <div class="feature-card h-100 text-center p-4">
+                        <div class="feature-icon"><i class="bi bi-flower3"></i></div>
+                        <h4 class="fw-bold">Fresh Flowers</h4>
+                        <p class="text-muted mb-0">
+                            Browse our daily selection of fresh-cut flowers,
+                            sourced from local growers every morning.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 reveal">
+                    <div class="feature-card h-100 text-center p-4">
+                        <div class="feature-icon"><i class="bi bi-gift"></i></div>
+                        <h4 class="fw-bold">Personalized Bouquets</h4>
+                        <p class="text-muted mb-0">
+                            Choose your preferred wrapper, ribbon, colors,
+                            and style to match the moment perfectly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 reveal">
+                    <div class="feature-card h-100 text-center p-4">
+                        <div class="feature-icon"><i class="bi bi-palette"></i></div>
+                        <h4 class="fw-bold">Florist's Creativity</h4>
+                        <p class="text-muted mb-0">
+                            Send your inspiration or let our florist
+                            create something one-of-a-kind for you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="pricing" class="py-5 bg-body-tertiary">
+        <div class="container py-5">
+
+            <div class="text-center mb-5 reveal">
+                <span class="text-pink eyebrow">OUR BOUQUETS</span>
+                <h2 class="fw-bold mt-2">Pricing &amp; Packages</h2>
+                <div class="section-underline"></div>
+                <p class="text-muted mt-3 col-lg-6 mx-auto">
+                    From a simple everyday gesture to a grand celebration
+                    piece — there's a bouquet sized just right.
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+<div class="col-md-6 col-lg-4 reveal">
+                    <div class="price-card h-100 p-4 text-center">
+                        <h5 class="text-uppercase fw-bold text-muted">Petite Bunch</h5>
+                        <div class="price display-6 my-3">₱499<span class="fs-6 fw-normal text-muted">/bouquet</span></div>
+                        <ul class="list-unstyled text-start mb-4">
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>5–7 fresh stems</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Single color palette</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Kraft paper wrap</li>
+                            <li class="mb-2 text-muted"><i class="bi bi-dash-lg me-2"></i>No greeting card</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-outline-secondary w-100">Choose Petite</a>
+                    </div>
+                </div>
+<div class="col-md-6 col-lg-4 reveal">
+                    <div class="price-card featured h-100 p-4 text-center position-relative">
+                        <span class="featured-badge badge position-absolute top-0 start-50 translate-middle px-3 py-2 rounded-pill">
+                            Most Loved
+                        </span>
+                        <h5 class="text-uppercase fw-bold text-pink mt-2">Signature Bouquet</h5>
+                        <div class="price display-6 my-3">₱999<span class="fs-6 fw-normal text-muted">/bouquet</span></div>
+                        <ul class="list-unstyled text-start mb-4">
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>12–15 fresh stems</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Mixed color palette</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Premium ribbon &amp; wrap</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Free greeting card</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-pink w-100">Choose Signature</a>
+                    </div>
+                </div>
+<div class="col-md-6 col-lg-4 reveal">
+                    <div class="price-card h-100 p-4 text-center">
+                        <h5 class="text-uppercase fw-bold text-muted">Grand Arrangement</h5>
+                        <div class="price display-6 my-3">₱1,899<span class="fs-6 fw-normal text-muted">/bouquet</span></div>
+                        <ul class="list-unstyled text-start mb-4">
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>25+ premium stems</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Custom color design</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Vase &amp; keepsake box</li>
+                            <li class="mb-2"><i class="bi bi-check2-circle me-2"></i>Same-day delivery</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-outline-secondary w-100">Choose Grand</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+<section id="testimonials" class="py-5">
+        <div class="container py-5">
+
+            <div class="text-center mb-5 reveal">
+                <span class="text-pink eyebrow">CUSTOMER LOVE</span>
+                <h2 class="fw-bold mt-2">What Our Customers Say</h2>
+                <div class="section-underline"></div>
+            </div>
+
+            <div id="reviewCarousel" class="carousel slide reveal" data-bs-ride="carousel">
+                <div class="carousel-inner text-center">
+
+                    <div class="carousel-item active">
+                        <div class="testimonial-card mx-auto p-4 p-md-5" style="max-width:700px;">
+                            <div class="avatar-circle">NB</div>
+                            <i class="bi bi-quote fs-2 text-pink"></i>
+                            <p class="lead">
+                                The bouquet was exactly what I wanted. The flowers
+                                were fresh and beautiful!
+                            </p>
+                            <h6 class="fw-bold mb-0">Necca Nabata</h6>
+                            <small class="text-muted">Verified Customer</small>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="testimonial-card mx-auto p-4 p-md-5" style="max-width:700px;">
+                            <div class="avatar-circle">AD</div>
+                            <i class="bi bi-quote fs-2 text-pink"></i>
+                            <p class="lead">
+                                I sent an inspiration photo and Blooming Treat
+                                created something even better!
+                            </p>
+                            <h6 class="fw-bold mb-0">Ana Rose De Villa</h6>
+                            <small class="text-muted">Verified Customer</small>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="testimonial-card mx-auto p-4 p-md-5" style="max-width:700px;">
+                            <div class="avatar-circle">JR</div>
+                            <i class="bi bi-quote fs-2 text-pink"></i>
+                            <p class="lead">
+                                Ordering was simple and the bouquet was
+                                ready right on time.
+                            </p>
+                            <h6 class="fw-bold mb-0">Joenalyn Ramos</h6>
+                            <small class="text-muted">Verified Customer</small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+<section id="contact" class="py-5 bg-body-tertiary">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+
+                    <div class="contact-card p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+                            <span class="text-pink eyebrow">GET IN TOUCH</span>
+                            <h2 class="fw-bold mt-2">Let's Create Something Beautiful</h2>
+                            <div class="section-underline"></div>
+                        </div>
+
+                        <form id="contactForm" novalidate>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">Please enter your full name.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="occasion" class="form-label">Occasion</label>
+                                <select class="form-select" id="occasion" name="occasion" required>
+                                    <option value="">Select an occasion</option>
+                                    <option>Birthday</option>
+                                    <option>Anniversary</option>
+                                    <option>Graduation</option>
+                                    <option>Wedding</option>
+                                    <option>Just Because</option>
+                                </select>
+                                <div class="invalid-feedback">Please select an occasion.</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                <div class="invalid-feedback">Please enter your message.</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-pink w-100 btn-lg">
+                                <i class="bi bi-send me-2"></i>Send Message
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<footer class="py-5 text-center">
+        <div class="container">
+            <h5 class="fw-bold mb-3"><i class="bi bi-flower1 me-1"></i>Blooming Treat</h5>
+            <div class="d-flex justify-content-center gap-3 mb-3">
+                <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+            </div>
+            <small>&copy; 2026 Blooming Treat. All rights reserved. | Lab Activity by Pulido</small>
+        </div>
+    </footer>
+<script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+<script src="sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+
+        const navbar = document.getElementById('mainNavbar');
+        window.addEventListener('scroll', function () {
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        (function () {
+            const htmlEl = document.documentElement;
+            const toggleBtn = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-bs-theme', theme);
+                themeIcon.className = theme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+                localStorage.setItem('bt-theme', theme);
+            }
+
+            applyTheme(localStorage.getItem('bt-theme') || 'light');
+
+            toggleBtn.addEventListener('click', function () {
+                const current = htmlEl.getAttribute('data-bs-theme');
+                applyTheme(current === 'dark' ? 'light' : 'dark');
+            });
+        })();
+
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealEls.forEach((el) => revealObserver.observe(el));
+
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Missing Information',
+                    text: 'Please fill out all required fields before sending your message.',
+                    confirmButtonColor: '#D96C8A'
+                });
+                return;
+            }
+
+            const name = document.getElementById('name').value;
+
+            Swal.fire({
+                icon: 'question',
+                title: 'Send this message?',
+                text: 'Please confirm the details you entered are correct.',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, send it',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#D96C8A',
+                cancelButtonColor: '#6c757d'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Message Sent!',
+                        text: `Thank you, ${name}! We'll be in touch shortly to plan your bouquet.`,
+                        confirmButtonColor: '#E7B96B'
+                    });
+                    form.reset();
+                    form.classList.remove('was-validated');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
